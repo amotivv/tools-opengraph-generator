@@ -1,54 +1,125 @@
-# Astro Starter Kit: Basics
+# OG Generator
+
+> A free tool provided by amotivv, inc. to generate stunning OpenGraph images and meta tags for your website.
+
+---
+
+## Overview
+
+The **OG Generator** is an open-source web tool built with [Astro](https://astro.build) and styled with [Tailwind CSS](https://tailwindcss.com) that enables you to create beautiful social media cards and meta tags quickly. Whether you need an eye-catching image for Facebook, Twitter, LinkedIn or you simply want to improve your SEO meta information, this tool is designed to help you generate and customize your OpenGraph assets in seconds.
+
+## Features
+
+- **Real-Time Preview:** Watch your changes update live as you modify the title, description, alignment, background color, or upload a background image.
+- **Customizable Templates:** Use the default layout or modify the design to suit your brand's style.
+- **Meta Tag Generator:** Automatically generate HTML meta tags for OpenGraph and Twitter Cards.
+- **Easy Image Download:** Generate your image and download it directly from the browser.
+- **Clipboard Copying:** Quickly copy the generated meta tags to your clipboard.
+- **Modern Tech Stack:** Built using Astro, Tailwind CSS, and TypeScript for a fast and modern development experience.
+
+## Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (version 18 or higher recommended)
+- [npm](https://www.npmjs.com/) (or your preferred package manager)
+
+### Installation
+
+Clone the repository and install dependencies:
 
 ```sh
-npm create astro@latest -- --template basics
+git clone https://github.com/yourusername/your-repo.git
+cd your-repo
+npm install
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+### Running the App in Development
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Start the development server with:
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
+```sh
+npm run dev
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Then open your browser and navigate to the local URL (usually [http://localhost:3000](http://localhost:3000)).
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+### Building for Production
 
-Any static assets, like images, can be placed in the `public/` directory.
+To build your production site:
 
-## 🧞 Commands
+```sh
+npm run build
+```
 
-All commands are run from the root of the project, from a terminal:
+You can preview your production build using:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+```sh
+npm run preview
+```
 
-## 👀 Want to learn more?
+## Project Structure
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+The key files and folders include:
+
+- **astro.config.mjs** & **tailwind.config.mjs**: Configuration files for Astro and Tailwind CSS.
+- **package.json**: Contains project scripts and dependency definitions.
+- **tsconfig.json**: TypeScript configuration for Astro.
+- **src/**: Contains your application source code
+  - **components/**: Reusable UI components (e.g., Card.astro, Footer.astro)
+  - **layouts/**: Layout components wrapping pages (e.g., Layout.astro)
+  - **pages/**: The main pages of the site (`index.astro`, `generator.astro`, `docs.astro`)
+- **.astro/**: Contains Astro-specific types and settings.
+- **.codesandbox/**, **.bolt/**: Configuration for external tools and deployment.
+
+## Usage
+
+### Home Page
+
+The home page (`index.astro`) gives an overview of the tool and quick links to the generator and documentation pages.
+
+### Generator Page
+
+The `generator.astro` page is the heart of the application. Here you can:
+
+1. **Enter a Title and Description:** Provide the text that will appear on your social media card.
+2. **Customize Alignment:** Choose from left, center, or right text alignment using the interactive buttons.
+3. **Choose a Background Color:** Select a color using the color picker.
+4. **Upload a Background Image:** (Optional) Upload an image (max 5MB, recommended size 1200x630px) for a custom look.
+5. **Download and Copy:** Use the “Download Image” button to save your generated image and “Copy Meta Tags” to copy the meta tags for use on your website.
+
+### Documentation Page
+
+The `docs.astro` page provides detailed information on:
+- What OpenGraph tags are and why they are important
+- A quick start guide to using the generator
+- Guidelines for image specifications
+- Examples of meta tags and frequently asked questions
+
+## How It Works
+
+- **Real-Time Updates:** A combination of HTML forms, JavaScript event listeners, and the [html2canvas](https://html2canvas.hertzen.com) library ensure that any input change is immediately reflected in the preview area.
+- **Dynamic Meta Tag Generation:** As you type in your title and description, the application generates the corresponding HTML meta tags that you can use to optimize your social media sharing.
+- **Download & Copy Functions:** The app uses client-side logic to convert the preview into an image for download and the Clipboard API to copy meta tags.
+
+## Customization
+
+You are free to customize the design and functionality. The code is modularized into components and layouts which makes it easy to modify the look-and-feel or add new features.
+
+## Contributing
+
+This tool is provided as-is by **amotivv, inc.** Contributions and feedback are welcome. Feel free to open issues or submit pull requests with improvements or fixes.
+
+## Credits
+
+- Built with [Astro](https://astro.build) and [Tailwind CSS](https://tailwindcss.com)
+- Meta tag generation inspired by social media best practices
+- Image rendering powered by [html2canvas](https://html2canvas.hertzen.com)
+
+## License
+
+This project is provided for free by **amotivv, inc.** Please check the repository for any additional license information.
+
+## Contact
+
+For any questions or support, please contact us at [ai@amotivv.com](mailto:ai@amotivv.com) or visit our [website](https://amotivv.com).
