@@ -29,7 +29,7 @@ The **OG Generator** is an open-source web tool built with [Astro](https://astro
 Clone the repository and install dependencies:
 
 ```sh
-git clone https://github.com/yourusername/your-repo.git
+git clone https://github.com/amotivv/tools-opengraph-generator
 cd your-repo
 npm install
 ```
@@ -118,7 +118,9 @@ This tool is provided as-is by **amotivv, inc.** Contributions and feedback are 
 
 ## License
 
-This project is provided for free by **amotivv, inc.** Please check the repository for any additional license information.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+Copyright (c) 2024 amotivv, inc.
 
 ## Contact
 
