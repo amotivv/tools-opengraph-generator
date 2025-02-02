@@ -11,17 +11,38 @@ const {
   title,
   description = "Generate beautiful OpenGraph images and meta tags for your website"
 } = Astro.props;
+
+const siteUrl = "https://opengraph.amotivv.com";
+const ogImage = "https://storage.googleapis.com/amotivv-public/og-image-opengraph-amotivv1.png";
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+    
+    <!-- Primary Meta Tags -->
     <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content="OpenGraph Generator" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={siteUrl} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={ogImage} />
   </head>
   <body class="bg-off-white font-mono min-h-screen flex flex-col">
     <nav class="fixed top-0 left-0 right-0 h-20 bg-white/80 backdrop-blur-md border-b border-light-gray z-50">
