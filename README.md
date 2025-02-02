@@ -1,4 +1,4 @@
-# OG Generator
+# OpenGraph Generator
 
 > A free tool provided by amotivv, inc. to generate stunning OpenGraph images and meta tags for your website.
 
@@ -6,7 +6,7 @@
 
 ## Overview
 
-The **OG Generator** is an open-source web tool built with [Astro](https://astro.build) and styled with [Tailwind CSS](https://tailwindcss.com) that enables you to create beautiful social media cards and meta tags quickly. Whether you need an eye-catching image for Facebook, Twitter, LinkedIn or you simply want to improve your SEO meta information, this tool is designed to help you generate and customize your OpenGraph assets in seconds.
+The **OpenGraph Generator** is an open-source web tool built with [Astro](https://astro.build) and styled with [Tailwind CSS](https://tailwindcss.com) that enables you to create beautiful social media cards and meta tags quickly. Whether you need an eye-catching image for Facebook, Twitter, LinkedIn or you simply want to improve your SEO meta information, this tool is designed to help you generate and customize your OpenGraph assets in seconds.
 
 ## Features
 
