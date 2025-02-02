@@ -1,0 +1,147 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Documentation - OG Generator">
+  <div class="container py-16">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-heading font-medium mb-8">Documentation</h1>
+      
+      <div class="space-y-12">
+        <!-- What are OpenGraph Tags? -->
+        <section>
+          <h2 class="text-2xl font-medium mb-4">What are OpenGraph Tags?</h2>
+          <div class="card space-y-4">
+            <p>OpenGraph (OG) tags are special meta tags that control how URLs are displayed when shared on social media. They were originally created by Facebook but are now widely used by other platforms including LinkedIn, Twitter, and more.</p>
+            
+            <h3 class="text-lg font-medium mt-4 mb-2">Why are they important?</h3>
+            <ul class="list-disc list-inside space-y-2">
+              <li>Better Social Sharing: Control how your content appears when shared on social media</li>
+              <li>Brand Consistency: Maintain your brand's visual identity across different platforms</li>
+              <li>Increased Engagement: Attractive previews can lead to higher click-through rates</li>
+              <li>Professional Appearance: Stand out with properly formatted social media cards</li>
+            </ul>
+
+            <h3 class="text-lg font-medium mt-4 mb-2">Key Components</h3>
+            <ul class="list-disc list-inside space-y-2">
+              <li>Title: The headline that appears in the social media card</li>
+              <li>Description: A brief summary of your content</li>
+              <li>Image: A visual representation of your content (1200x630px recommended)</li>
+              <li>URL: The link to your content</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Quick Start -->
+        <section>
+          <h2 class="text-2xl font-medium mb-4">Quick Start</h2>
+          <div class="card space-y-4">
+            <p>Generate OpenGraph images and meta tags in 3 simple steps:</p>
+            <ol class="list-decimal list-inside space-y-2">
+              <li>Enter your title and description in the generator</li>
+              <li>Customize the background color or upload an image</li>
+              <li>Download your image and copy the meta tags</li>
+            </ol>
+          </div>
+        </section>
+
+        <!-- Image Hosting -->
+        <section>
+          <h2 class="text-2xl font-medium mb-4">Image Hosting</h2>
+          <div class="card space-y-4">
+            <p>After generating your OG image, follow these steps to make it work:</p>
+            <ol class="list-decimal list-inside space-y-2">
+              <li>Download the generated image using the "Download Image" button</li>
+              <li>Host the image on your preferred platform:
+                <ul class="list-disc list-inside ml-6 mt-2 space-y-1">
+                  <li>Your website's static assets folder</li>
+                  <li>A CDN service (e.g., Cloudinary, ImageKit)</li>
+                  <li>Cloud storage (e.g., AWS S3, Google Cloud Storage)</li>
+                </ul>
+              </li>
+              <li>Copy the hosted image's public URL</li>
+              <li>Add these tags to your meta tags, replacing <code>[YOUR_IMAGE_URL]</code> with your hosted image URL:
+                <pre class="bg-secondary text-off-white p-4 rounded-xl mt-2 text-sm">
+<code>&lt;meta property="og:image" content="[YOUR_IMAGE_URL]"&gt;
+&lt;meta property="twitter:image" content="[YOUR_IMAGE_URL]"&gt;</code></pre>
+              </li>
+            </ol>
+          </div>
+        </section>
+
+        <!-- Image Guidelines -->
+        <section>
+          <h2 class="text-2xl font-medium mb-4">Image Guidelines</h2>
+          <div class="card space-y-4">
+            <p>For best results across all platforms, follow these guidelines:</p>
+            <ul class="list-disc list-inside space-y-2">
+              <li>Recommended size: 1200x630 pixels</li>
+              <li>Maximum file size: 5MB</li>
+              <li>Format: PNG or JPG</li>
+              <li>Keep text clear and readable</li>
+              <li>Use high-contrast colors for better visibility</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Meta Tags -->
+        <section>
+          <h2 class="text-2xl font-medium mb-4">Meta Tags</h2>
+          <div class="card space-y-4">
+            <p>The generator creates meta tags for:</p>
+            <ul class="list-disc list-inside space-y-2">
+              <li>OpenGraph (Facebook, LinkedIn)</li>
+              <li>Twitter Cards</li>
+              <li>Basic SEO</li>
+            </ul>
+            <div class="bg-secondary text-off-white p-4 rounded-xl mt-4">
+              <pre><code><!-- Example meta tags -->
+&lt;meta property="og:title" content="Your Title"&gt;
+&lt;meta property="og:description" content="Your Description"&gt;
+&lt;meta property="og:image" content="your-image-url.png"&gt;
+&lt;meta name="twitter:card" content="summary_large_image"&gt;</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Tips -->
+        <section>
+          <h2 class="text-2xl font-medium mb-4">Tips for Better Results</h2>
+          <div class="card space-y-4">
+            <ul class="list-disc list-inside space-y-2">
+              <li>Keep titles under 60 characters</li>
+              <li>Write descriptions between 140-160 characters</li>
+              <li>Test your images on different platforms</li>
+              <li>Use clear, readable fonts</li>
+              <li>Ensure good contrast between text and background</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- FAQ -->
+        <section>
+          <h2 class="text-2xl font-medium mb-4">FAQ</h2>
+          <div class="card space-y-6">
+            <div>
+              <h3 class="font-medium mb-2">Why aren't my images showing on social media?</h3>
+              <p>Social media platforms cache images. Use their debug tools to refresh the cache:</p>
+              <ul class="list-disc list-inside ml-4 mt-2">
+                <li><a href="https://developers.facebook.com/tools/debug/" class="text-primary hover:underline">Facebook Debugger</a></li>
+                <li><a href="https://cards-dev.twitter.com/validator" class="text-primary hover:underline">Twitter Card Validator</a></li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="font-medium mb-2">Where should I host my OG image?</h3>
+              <p>You can host your image on any public hosting service. Popular options include:</p>
+              <ul class="list-disc list-inside ml-4 mt-2">
+                <li>Your website's static assets</li>
+                <li>CDN services (Cloudinary, ImageKit)</li>
+                <li>Cloud storage (AWS S3, Google Cloud Storage)</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

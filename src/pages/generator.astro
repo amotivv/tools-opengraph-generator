@@ -1,0 +1,238 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const alignmentOptions = [
+  { value: 'left', label: 'Left align', icon: 'M4 5h16M4 12h10M4 19h16' },
+  { value: 'center', label: 'Center align', icon: 'M4 5h16M7 12h10M4 19h16' },
+  { value: 'right', label: 'Right align', icon: 'M4 5h16M10 12h10M4 19h16' }
+];
+---
+
+<Layout title="Create Your OpenGraph Image - OG Generator">
+  <div class="container py-16">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- Editor Section -->
+      <div class="card">
+        <h2 class="text-2xl font-medium mb-6">Design Your Image</h2>
+        <form id="og-form" class="space-y-6">
+          <div>
+            <label for="title" class="block text-sm font-medium text-dark-gray mb-2">Title</label>
+            <input type="text" id="title" name="title" class="input-field" placeholder="Enter your title" />
+          </div>
+          
+          <div>
+            <label for="description" class="block text-sm font-medium text-dark-gray mb-2">Description</label>
+            <textarea id="description" name="description" rows="3" class="input-field" placeholder="Enter a description"></textarea>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-dark-gray mb-2">Text Alignment</label>
+            <div class="flex gap-2">
+              {alignmentOptions.map(({ value, label, icon }) => (
+                <button
+                  type="button"
+                  data-alignment={value}
+                  class="alignment-btn w-12 h-12 rounded-lg border border-light-gray hover:bg-primary/5 transition-all duration-200 flex items-center justify-center"
+                  aria-label={label}
+                >
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d={icon} />
+                  </svg>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <label for="bgColor" class="block text-sm font-medium text-dark-gray mb-2">Background Color</label>
+            <input type="color" id="bgColor" name="bgColor" class="input-field h-12" value="#4D7EFF" />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-dark-gray mb-2">
+              Background Image
+              <span class="text-dark-gray/60 text-xs ml-2">(Recommended: 1200x630px, Max: 5MB)</span>
+            </label>
+            <input 
+              type="file" 
+              id="bgImage" 
+              name="bgImage" 
+              accept="image/png,image/jpeg,image/jpg"
+              class="input-field"
+            />
+          </div>
+
+          <div class="flex gap-4">
+            <button type="button" id="download" class="btn-primary">Download Image</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Preview Section -->
+      <div class="card">
+        <h2 class="text-2xl font-medium mb-6">Preview</h2>
+        <div id="preview" class="aspect-[1.91/1] bg-white rounded-xl overflow-hidden">
+          <div id="og-canvas" class="w-full h-full"></div>
+        </div>
+
+        <div class="mt-8">
+          <h3 class="text-xl font-medium mb-4">Meta Tags</h3>
+          <pre id="meta-tags" class="bg-secondary text-off-white p-4 rounded-xl overflow-x-auto"><code></code></pre>
+          <button id="copy-tags" class="btn-secondary mt-4">Copy Meta Tags</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  import html2canvas from 'html2canvas';
+
+  const form = document.getElementById('og-form') as HTMLFormElement;
+  const preview = document.getElementById('og-canvas') as HTMLDivElement;
+  const metaTags = document.getElementById('meta-tags') as HTMLPreElement;
+  const copyButton = document.getElementById('copy-tags') as HTMLButtonElement;
+  const downloadButton = document.getElementById('download') as HTMLButtonElement;
+  const alignmentButtons = document.querySelectorAll('.alignment-btn');
+  const bgImageInput = document.getElementById('bgImage') as HTMLInputElement;
+
+  let currentAlignment: string = 'left';
+  let backgroundImage: string | null = null;
+
+  // Handle background image upload
+  bgImageInput.addEventListener('change', async (e) => {
+    const file = (e.target as HTMLInputElement).files?.[0];
+    if (!file) {
+      backgroundImage = null;
+      updatePreview();
+      return;
+    }
+
+    // Validate file size (5MB max)
+    if (file.size > 5 * 1024 * 1024) {
+      alert('Image size must be less than 5MB');
+      bgImageInput.value = '';
+      backgroundImage = null;
+      updatePreview();
+      return;
+    }
+
+    // Create object URL for the image
+    backgroundImage = URL.createObjectURL(file);
+    updatePreview();
+  });
+
+  // Handle alignment button clicks
+  alignmentButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const alignment = button.getAttribute('data-alignment');
+      if (alignment) {
+        currentAlignment = alignment;
+        // Update active state
+        alignmentButtons.forEach(btn => {
+          btn.classList.remove('bg-primary/10', 'text-primary', 'border-primary');
+        });
+        button.classList.add('bg-primary/10', 'text-primary', 'border-primary');
+        updatePreview();
+      }
+    });
+  });
+
+  // Set initial active state for left alignment
+  alignmentButtons[0].classList.add('bg-primary/10', 'text-primary', 'border-primary');
+
+  function updatePreview() {
+    const formData = new FormData(form);
+    const title = formData.get('title') as string;
+    const description = formData.get('description') as string;
+    const bgColor = formData.get('bgColor') as string;
+
+    preview.style.backgroundColor = bgColor;
+    
+    // Set background image if available
+    if (backgroundImage) {
+      preview.style.backgroundImage = `url(${backgroundImage})`;
+      preview.style.backgroundSize = 'cover';
+      preview.style.backgroundPosition = 'center';
+    } else {
+      preview.style.backgroundImage = 'none';
+    }
+
+    preview.innerHTML = `
+      <div class="w-full h-full p-16 flex flex-col justify-center ${currentAlignment === 'left' ? 'items-start' : currentAlignment === 'center' ? 'items-center' : 'items-end'}" style="background: ${backgroundImage ? 'rgba(0,0,0,0.4)' : 'transparent'}">
+        <h1 class="text-display font-bold text-white mb-8 ${getTextAlignmentClass()}">${title}</h1>
+        <p class="text-xl text-white/80 ${getTextAlignmentClass()} max-w-2xl">${description}</p>
+      </div>
+    `;
+
+    updateMetaTags(title, description);
+  }
+
+  function updateMetaTags(title: string, description: string) {
+    // Get the current URL (will need to be updated by user)
+    const domain = 'example.com';
+    const url = `https://${domain}`;
+
+    const metaTagsContent = `
+<!-- HTML Meta Tags -->
+<title>${title}</title>
+<meta name="description" content="${description}">
+
+<!-- Facebook Meta Tags -->
+<meta property="og:url" content="${url}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="${title}">
+<meta property="og:description" content="${description}">
+
+<!-- Twitter Meta Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="${domain}">
+<meta property="twitter:url" content="${url}">
+<meta name="twitter:title" content="${title}">
+<meta name="twitter:description" content="${description}">
+
+<!-- Note: After hosting your image, add these tags with your image URL:
+<meta property="og:image" content="[YOUR_IMAGE_URL]">
+<meta name="twitter:image" content="[YOUR_IMAGE_URL]">
+-->`;
+
+    metaTags.querySelector('code')!.textContent = metaTagsContent;
+  }
+
+  function getTextAlignmentClass() {
+    switch (currentAlignment) {
+      case 'center':
+        return 'text-center';
+      case 'right':
+        return 'text-right';
+      default:
+        return 'text-left';
+    }
+  }
+
+  form.addEventListener('input', updatePreview);
+
+  downloadButton.addEventListener('click', async () => {
+    const canvas = await html2canvas(preview);
+    const image = canvas.toDataURL('image/png');
+    
+    const link = document.createElement('a');
+    link.download = 'og-image.png';
+    link.href = image;
+    link.click();
+  });
+
+  copyButton.addEventListener('click', () => {
+    const code = metaTags.querySelector('code')!.textContent;
+    if (code) {
+      navigator.clipboard.writeText(code);
+      copyButton.textContent = 'Copied!';
+      setTimeout(() => {
+        copyButton.textContent = 'Copy Meta Tags';
+      }, 2000);
+    }
+  });
+
+  // Initialize preview
+  updatePreview();
+</script>

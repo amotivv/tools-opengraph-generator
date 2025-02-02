@@ -1,0 +1,73 @@
+---
+import '@fontsource/ibm-plex-mono';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { 
+  title,
+  description = "Generate beautiful OpenGraph images and meta tags for your website"
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body class="bg-off-white font-mono min-h-screen flex flex-col">
+    <nav class="fixed top-0 left-0 right-0 h-20 bg-white/80 backdrop-blur-md border-b border-light-gray z-50">
+      <div class="container h-full flex items-center justify-between">
+        <a href="/" class="text-xl font-bold text-secondary">OG Generator</a>
+        <div class="flex gap-4">
+          <a href="/generator" class="text-dark-gray hover:text-primary transition-colors">Generator</a>
+          <a href="/docs" class="text-dark-gray hover:text-primary transition-colors">Docs</a>
+        </div>
+      </div>
+    </nav>
+    <main class="pt-20 flex-grow">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --primary: #4D7EFF;
+    --secondary: #111111;
+    --off-white: #F8F8F8;
+    --light-gray: #E5E5E5;
+    --dark-gray: #333333;
+  }
+  
+  html {
+    font-family: 'IBM Plex Mono', monospace;
+    background: var(--off-white);
+    color: var(--secondary);
+  }
+
+  .btn-primary {
+    @apply bg-primary text-white px-8 py-4 rounded-xl hover:bg-primary/90 transition-all duration-300;
+  }
+
+  .btn-secondary {
+    @apply border border-dark-gray text-dark-gray px-8 py-4 rounded-xl hover:bg-dark-gray hover:text-white transition-all duration-300;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl bg-white border-0 text-dark-gray focus:ring-2 focus:ring-primary;
+  }
+
+  .card {
+    @apply bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-all duration-300;
+  }
+</style>
